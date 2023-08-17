@@ -10,6 +10,21 @@ var rollbar = new Rollbar({
 
 // record a generic message and send it to Rollbar
 rollbar.log('Hello world!')
+app.get('/trigger-error', (req, res) => {
+  try {
+    // Simulating a critical error
+    rollbar.critical('A critical error occurred', new Error('Critical error'));
+    
+    // Simulating a warning
+    rollbar.warning('A warning occurred', { context: 'Some context' });
+
+    // Simulating an unhandled exception
+    nonExistentFunction();
+  } catch (error) {
+    rollbar.error('An error occurred', error);
+    res.status(500).send('An error occurred and has been reported.');
+  }
+})
 
 app.use(express.static(`${__dirname}/public`))
 app.get('/api/cat',(req,res)=>{
