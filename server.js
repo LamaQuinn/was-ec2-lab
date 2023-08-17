@@ -9,7 +9,7 @@ var rollbar = new Rollbar({
 })
 
 // record a generic message and send it to Rollbar
-rollbar.log('Hello world!')t 
+rollbar.log('Hello world!')
 
 app.use(express.static(`${__dirname}/public`))
 app.get('/api/cat',(req,res)=>{
